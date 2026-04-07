@@ -341,11 +341,14 @@ chatForm.addEventListener('submit', (e) => {
 });
 
 clearChatBtn.addEventListener('click', () => {
-  chatWindow.innerHTML = `
-    <div class="bot-message">
-      Conversación reiniciada ✅ Gracias por comunicarte con FitBalance Store. En breve, uno de nuestros asesores podrá atender tu consulta.
-    </div>
-  `;
+  // Limpiar completamente el chat
+  chatWindow.innerHTML = '';
+
+  // Opcional: limpiar input también
+  userInput.value = '';
+
+  // Opcional: resetear scroll
+  chatWindow.scrollTop = 0;
 });
 
 openChatBtn.addEventListener('click', () => {
