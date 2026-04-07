@@ -538,3 +538,11 @@ input, select, textarea{
   object-fit:contain;
   filter: drop-shadow(0 10px 24px rgba(0,0,0,0.35));
 }
+#clearChatBtn{
+  background:#ff4d4d;
+  color:#fff;
+}
+
+#clearChatBtn:hover{
+  background:#cc0000;
+}
