@@ -102,6 +102,8 @@ button,input{font:inherit}
   z-index:1;
   display:flex;
   align-items:center;
+  justify-content:space-between;
+  gap:40px;
   min-height:620px;
 }
 .hero-copy{
@@ -520,4 +522,19 @@ input, select, textarea{
 .hero-logo{
   height:120px;
   margin-bottom:20px;
+}
+.hero-brand-visual{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:520px;
+}
+
+.hero-logo-large{
+  max-width:520px;
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  filter: drop-shadow(0 10px 24px rgba(0,0,0,0.35));
 }
