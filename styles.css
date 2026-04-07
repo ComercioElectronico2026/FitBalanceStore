@@ -546,3 +546,46 @@ input, select, textarea{
 #clearChatBtn:hover{
   background:#cc0000;
 }
+.chatbot-header{
+  background:#141a23;
+  color:#fff;
+  padding:18px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.chatbot-header strong{
+  display:block;
+  font-size:1.1rem;
+}
+
+.chatbot-header small{
+  display:block;
+  color:rgba(255,255,255,.72);
+  margin-top:4px;
+}
+
+.chatbot-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+#clearChatBtn{
+  width:42px;
+  height:42px;
+  border:none;
+  border-radius:50%;
+  background:#ff4d4d;
+  color:#fff;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1rem;
+}
+
+#clearChatBtn:hover{
+  background:#d93636;
+}
