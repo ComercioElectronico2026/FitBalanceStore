@@ -83,9 +83,8 @@ button,input{font:inherit}
   min-height:620px;
   position:relative;
   background:
-    linear-gradient(90deg, rgba(16,18,23,.82) 0%, rgba(16,18,23,.62) 38%, rgba(16,18,23,.18) 68%, rgba(16,18,23,.08) 100%),
-    url('assets/leggings.png') right 12% bottom 20% / contain no-repeat,
-    linear-gradient(180deg, #43464d 0%, #252830 100%);
+    linear-gradient(135deg, #1e2127 0%, #2f333b 100%);
+}
   overflow:hidden;
 }
 .hero-overlay{
