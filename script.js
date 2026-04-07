@@ -7,44 +7,22 @@ const cartCount = document.getElementById('cartCount');
 const cartSubtotal = document.getElementById('cartSubtotal');
 const cartTotalItems = document.getElementById('cartTotalItems');
 const template = document.getElementById('cartItemTemplate');
+
 const paymentModal = document.getElementById('paymentModal');
 const paymentTitle = document.getElementById('paymentTitle');
 const paymentFields = document.getElementById('paymentFields');
 const paymentForm = document.getElementById('paymentForm');
 
-document.querySelectorAll('.add-to-cart').forEach(button => {
-  button.addEventListener('click', () => {
-    const item = {
-      id: button.dataset.id,
-      name: button.dataset.name,
-      price: Number(button.dataset.price),
-      image: button.dataset.image
-    };
-    addToCart(item);
-    openCart();
-  });
-});
+const openCartBtn = document.getElementById('openCartBtn');
+const closeCartBtn = document.getElementById('closeCartBtn');
+const checkoutBtn = document.getElementById('checkoutBtn');
+const closePaymentModalBtn = document.getElementById('closePaymentModal');
 
-document.getElementById('openCartBtn').addEventListener('click', openCart);
-document.getElementById('closeCartBtn').addEventListener('click', closeCart);
-document.getElementById('checkoutBtn').addEventListener('click', () => {
-  if (getTotalItems() === 0) {
-    alert('Tu carrito está vacío. Agrega al menos un producto.');
-    return;
-  }
-  openPaymentModal('card');
-});
-
-overlay.addEventListener('click', () => {
-  closeCart();
-  closePaymentModal();
-});
-
-document.querySelectorAll('.payment-card').forEach(card => {
-  card.addEventListener('click', () => openPaymentModal(card.dataset.payment));
-});
-
-document.getElementById('closePaymentModal').addEventListener('click', closePaymentModal);
+const chatWindow = document.getElementById('chatWindow');
+const chatForm = document.getElementById('chatForm');
+const chatInput = document.getElementById('chatInput');
+const clearChatBtn = document.getElementById('clearChatBtn');
+const openChatBtn = document.getElementById('openChatBtn');
 
 function formatCRC(amount) {
   return new Intl.NumberFormat('es-CR', {
@@ -54,30 +32,8 @@ function formatCRC(amount) {
   }).format(amount);
 }
 
-function addToCart(item) {
-  if (cart[item.id]) {
-    cart[item.id].qty += 1;
-  } else {
-    cart[item.id] = { ...item, qty: 1 };
-  }
-  saveCart();
-  renderCart();
-}
-
-function updateQty(id, change) {
-  if (!cart[id]) return;
-  cart[id].qty += change;
-  if (cart[id].qty <= 0) {
-    delete cart[id];
-  }
-  saveCart();
-  renderCart();
-}
-
-function removeItem(id) {
-  delete cart[id];
-  saveCart();
-  renderCart();
+function saveCart() {
+  localStorage.setItem('fitbalance-cart', JSON.stringify(cart));
 }
 
 function getTotalItems() {
@@ -88,19 +44,22 @@ function getSubtotal() {
   return Object.values(cart).reduce((acc, item) => acc + item.price * item.qty, 0);
 }
 
-function saveCart() {
-  localStorage.setItem('fitbalance-cart', JSON.stringify(cart));
-}
-
 function renderCart() {
   cartItems.innerHTML = '';
 
   const items = Object.values(cart);
+
   if (!items.length) {
-    cartItems.innerHTML = '<div class="cart-empty">Tu carrito está vacío.<br>Agrega productos para continuar.</div>';
+    cartItems.innerHTML = `
+      <div class="cart-empty">
+        Tu carrito está vacío.<br>
+        Agrega productos para continuar.
+      </div>
+    `;
   } else {
     items.forEach(item => {
       const node = template.content.cloneNode(true);
+
       node.querySelector('.cart-item-image').src = item.image;
       node.querySelector('.cart-item-image').alt = item.name;
       node.querySelector('.cart-item-name').textContent = item.name;
@@ -120,6 +79,34 @@ function renderCart() {
   cartSubtotal.textContent = formatCRC(getSubtotal());
 }
 
+function addToCart(item) {
+  if (cart[item.id]) {
+    cart[item.id].qty += 1;
+  } else {
+    cart[item.id] = { ...item, qty: 1 };
+  }
+  saveCart();
+  renderCart();
+}
+
+function updateQty(id, change) {
+  if (!cart[id]) return;
+  cart[id].qty += change;
+
+  if (cart[id].qty <= 0) {
+    delete cart[id];
+  }
+
+  saveCart();
+  renderCart();
+}
+
+function removeItem(id) {
+  delete cart[id];
+  saveCart();
+  renderCart();
+}
+
 function openCart() {
   cartDrawer.classList.add('open');
   overlay.classList.add('show');
@@ -128,10 +115,11 @@ function openCart() {
 
 function closeCart() {
   cartDrawer.classList.remove('open');
+  cartDrawer.setAttribute('aria-hidden', 'true');
+
   if (!paymentModal.classList.contains('show')) {
     overlay.classList.remove('show');
   }
-  cartDrawer.setAttribute('aria-hidden', 'true');
 }
 
 function openPaymentModal(type) {
@@ -240,56 +228,63 @@ function openPaymentModal(type) {
 function closePaymentModal() {
   paymentModal.classList.remove('show');
   paymentModal.setAttribute('aria-hidden', 'true');
+
   if (!cartDrawer.classList.contains('open')) {
     overlay.classList.remove('show');
   }
 }
 
-paymentForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const method = paymentForm.dataset.method || 'card';
-  alert(`Pago simulado confirmado con el método: ${method === 'card' ? 'Tarjeta' : method === 'sinpe' ? 'SINPE Móvil' : 'Transferencia bancaria'}.`);
+document.querySelectorAll('.add-to-cart').forEach(button => {
+  button.addEventListener('click', () => {
+    const item = {
+      id: button.dataset.id,
+      name: button.dataset.name,
+      price: Number(button.dataset.price),
+      image: button.dataset.image
+    };
+    addToCart(item);
+    openCart();
+  });
+});
+
+openCartBtn.addEventListener('click', openCart);
+closeCartBtn.addEventListener('click', closeCart);
+
+checkoutBtn.addEventListener('click', () => {
+  if (getTotalItems() === 0) {
+    alert('Tu carrito está vacío. Agrega al menos un producto.');
+    return;
+  }
+  openPaymentModal('card');
+});
+
+overlay.addEventListener('click', () => {
+  closeCart();
   closePaymentModal();
 });
 
-const chatWindow = document.getElementById('chatWindow');
-const chatForm = document.getElementById('chatForm');
-const chatInput = document.getElementById('chatInput');
-const openChatBtn = document.getElementById('openChatBtn');
-const clearChatBtn = document.getElementById('clearChatBtn');
-
-if (openChatBtn) {
-  openChatBtn.addEventListener('click', () => {
-    document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
-    setTimeout(() => chatInput.focus(), 450);
+document.querySelectorAll('.payment-card').forEach(card => {
+  card.addEventListener('click', () => {
+    openPaymentModal(card.dataset.payment);
   });
-}
+});
 
-if (chatForm) {
-  chatForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+closePaymentModalBtn.addEventListener('click', closePaymentModal);
 
-    const message = chatInput.value.trim();
-    if (!message) return;
+paymentForm.addEventListener('submit', (e) => {
+  e.preventDefault();
 
-    appendMessage(message, 'user');
-    chatInput.value = '';
+  const method = paymentForm.dataset.method || 'card';
+  const methodLabel =
+    method === 'card'
+      ? 'Tarjeta'
+      : method === 'sinpe'
+      ? 'SINPE Móvil'
+      : 'Transferencia bancaria';
 
-    setTimeout(() => {
-      appendMessage(getBotReply(message), 'bot');
-    }, 500);
-  });
-}
-
-if (clearChatBtn) {
-  clearChatBtn.addEventListener('click', () => {
-    chatWindow.innerHTML = `
-      <div class="bot-message">
-        Conversación reiniciada ✅ Gracias por comunicarte con FitBalance Store. En breve, uno de nuestros asesores podrá atender tu consulta.
-      </div>
-    `;
-  });
-}
+  alert(`Pago simulado confirmado con el método: ${methodLabel}.`);
+  closePaymentModal();
+});
 
 function appendMessage(text, sender) {
   const div = document.createElement('div');
@@ -314,7 +309,13 @@ function getBotReply(message) {
     return 'Gracias por tu interés. Un asesor se pondrá en contacto contigo en breve para brindarte detalles sobre precios y promociones disponibles.';
   }
 
-  if (text.includes('producto') || text.includes('leggings') || text.includes('ligas') || text.includes('mat') || text.includes('barra')) {
+  if (
+    text.includes('producto') ||
+    text.includes('leggings') ||
+    text.includes('ligas') ||
+    text.includes('mat') ||
+    text.includes('barra')
+  ) {
     return 'Gracias por escribirnos. En breve, uno de nuestros asesores podrá brindarte orientación sobre los productos disponibles y sus características.';
   }
 
@@ -323,23 +324,33 @@ function getBotReply(message) {
   }
 
   return 'Gracias por tu mensaje. Hemos recibido tu consulta correctamente y en breve uno de nuestros asesores se pondrá en contacto contigo.';
-}renderCart();
-const clearChatBtn = document.getElementById('clearChatBtn');
+}
+
+chatForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const message = chatInput.value.trim();
+  if (!message) return;
+
+  appendMessage(message, 'user');
+  chatInput.value = '';
+
+  setTimeout(() => {
+    appendMessage(getBotReply(message), 'bot');
+  }, 500);
+});
 
 clearChatBtn.addEventListener('click', () => {
   chatWindow.innerHTML = `
     <div class="bot-message">
-      Conversación reiniciada ✅ <br>
-      ¿En qué podemos ayudarte hoy?
+      Conversación reiniciada ✅ Gracias por comunicarte con FitBalance Store. En breve, uno de nuestros asesores podrá atender tu consulta.
     </div>
   `;
 });
-const clearChatBtn = document.getElementById('clearChatBtn');
 
-clearChatBtn.addEventListener('click', () => {
-  chatWindow.innerHTML = `
-    <div class="bot-message">
-      Conversación reiniciada ✅ ¿En qué podemos ayudarte hoy? En breve, uno de nuestros asesores podrá atender tu consulta.
-    </div>
-  `;
+openChatBtn.addEventListener('click', () => {
+  document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+  setTimeout(() => chatInput.focus(), 450);
 });
+
+renderCart();
