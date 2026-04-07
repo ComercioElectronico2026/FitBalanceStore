@@ -225,7 +225,7 @@
           </div>
         </div>
 
-        <div class="chatbot-card">
+       <div class="chatbot-card">
   <div class="chatbot-header">
     <div>
       <strong>FitBot</strong>
@@ -233,10 +233,27 @@
     </div>
 
     <div class="chatbot-actions">
-      <button id="clearChatBtn" class="icon-btn" title="Borrar chat">🗑️</button>
+      <button type="button" id="clearChatBtn" class="icon-btn clear-chat-btn" title="Borrar chat">🗑️</button>
       <span class="status-dot"></span>
     </div>
   </div>
+
+  <div class="chat-window" id="chatWindow">
+    <div class="bot-message">
+      ¡Hola! 👋 Gracias por escribir a FitBalance Store. Hemos recibido tu mensaje y uno de nuestros asesores se pondrá en contacto contigo en breve.
+    </div>
+  </div>
+
+  <form class="chat-form" id="chatForm">
+    <input
+      type="text"
+      id="chatInput"
+      placeholder="Escribe tu consulta..."
+      autocomplete="off"
+    >
+    <button type="submit" class="primary-btn">Enviar</button>
+  </form>
+</div>
 
   <div class="chat-window" id="chatWindow">
     <div class="bot-message">
