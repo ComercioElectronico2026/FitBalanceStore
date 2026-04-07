@@ -330,3 +330,13 @@ function getBotReply(message) {
 }
 
 renderCart();
+const clearChatBtn = document.getElementById('clearChatBtn');
+
+clearChatBtn.addEventListener('click', () => {
+  chatWindow.innerHTML = `
+    <div class="bot-message">
+      Conversación reiniciada ✅ <br>
+      ¿En qué podemos ayudarte hoy?
+    </div>
+  `;
+});
