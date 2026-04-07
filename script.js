@@ -256,24 +256,40 @@ const chatWindow = document.getElementById('chatWindow');
 const chatForm = document.getElementById('chatForm');
 const chatInput = document.getElementById('chatInput');
 const openChatBtn = document.getElementById('openChatBtn');
+const clearChatBtn = document.getElementById('clearChatBtn');
 
-openChatBtn.addEventListener('click', () => {
-  document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
-  setTimeout(() => chatInput.focus(), 450);
-});
+if (openChatBtn) {
+  openChatBtn.addEventListener('click', () => {
+    document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => chatInput.focus(), 450);
+  });
+}
 
-chatForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const message = chatInput.value.trim();
-  if (!message) return;
+if (chatForm) {
+  chatForm.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-  appendMessage(message, 'user');
-  chatInput.value = '';
+    const message = chatInput.value.trim();
+    if (!message) return;
 
-  setTimeout(() => {
-    appendMessage(getBotReply(message), 'bot');
-  }, 500);
-});
+    appendMessage(message, 'user');
+    chatInput.value = '';
+
+    setTimeout(() => {
+      appendMessage(getBotReply(message), 'bot');
+    }, 500);
+  });
+}
+
+if (clearChatBtn) {
+  clearChatBtn.addEventListener('click', () => {
+    chatWindow.innerHTML = `
+      <div class="bot-message">
+        Conversación reiniciada ✅ Gracias por comunicarte con FitBalance Store. En breve, uno de nuestros asesores podrá atender tu consulta.
+      </div>
+    `;
+  });
+}
 
 function appendMessage(text, sender) {
   const div = document.createElement('div');
@@ -287,49 +303,27 @@ function getBotReply(message) {
   const text = message.toLowerCase();
 
   if (text.includes('env') || text.includes('entrega')) {
-    return 'Gracias por tu consulta 🙌 Un asesor de FitBalance Store se pondrá en contacto contigo en los próximos minutos para brindarte información detallada sobre nuestros envíos a nivel nacional.';
+    return 'Gracias por tu consulta. En breve, uno de nuestros asesores se pondrá en contacto contigo para brindarte información sobre envíos y tiempos de entrega.';
   }
 
   if (text.includes('pago') || text.includes('tarjeta') || text.includes('sinpe') || text.includes('transferencia')) {
-    return 'Perfecto 💳 Hemos recibido tu consulta sobre métodos de pago. En breve, uno de nuestros asesores te brindará asistencia personalizada para completar tu compra de forma segura.';
+    return 'Hemos recibido tu consulta sobre métodos de pago. En los próximos minutos, un asesor de FitBalance Store podrá ayudarte con la información correspondiente.';
   }
 
   if (text.includes('precio') || text.includes('cuesta') || text.includes('valor')) {
-    return 'Gracias por tu interés 💚 Un asesor se pondrá en contacto contigo en los próximos minutos para brindarte información actualizada sobre precios y promociones disponibles.';
+    return 'Gracias por tu interés. Un asesor se pondrá en contacto contigo en breve para brindarte detalles sobre precios y promociones disponibles.';
   }
 
   if (text.includes('producto') || text.includes('leggings') || text.includes('ligas') || text.includes('mat') || text.includes('barra')) {
-    return 'Excelente elección 👌 Hemos recibido tu consulta sobre nuestros productos. En breve, un asesor te brindará recomendaciones personalizadas según tus necesidades.';
+    return 'Gracias por escribirnos. En breve, uno de nuestros asesores podrá brindarte orientación sobre los productos disponibles y sus características.';
   }
 
   if (text.includes('hola') || text.includes('buenas')) {
-    return '¡Hola! 👋 Gracias por escribir a FitBalance Store. Hemos recibido tu mensaje y uno de nuestros asesores se pondrá en contacto contigo en breve para ayudarte.';
+    return '¡Hola! Gracias por comunicarte con FitBalance Store. Hemos recibido tu mensaje y en breve uno de nuestros asesores podrá atenderte.';
   }
 
-  return 'Gracias por tu mensaje 🙌 Hemos recibido tu solicitud correctamente. En los próximos minutos, un asesor de FitBalance Store se pondrá en contacto contigo para brindarte atención personalizada.';
-}
-  const text = message.toLowerCase();
-
-  if (text.includes('env') || text.includes('entrega')) {
-    return 'Realizamos envíos a toda Costa Rica mediante mensajería. El tiempo estimado ilustrativo es de 1 a 3 días hábiles.';
-  }
-  if (text.includes('pago') || text.includes('tarjeta') || text.includes('sinpe') || text.includes('transferencia')) {
-    return 'Puedes simular pago por tarjeta, SINPE Móvil o transferencia bancaria. Todos son métodos demostrativos con fines académicos.';
-  }
-  if (text.includes('precio') || text.includes('cuesta') || text.includes('valor')) {
-    return 'Los precios visibles en la tienda son ilustrativos y forman parte de la demostración del proyecto de comercio electrónico.';
-  }
-  if (text.includes('producto') || text.includes('leggings') || text.includes('ligas') || text.includes('mat') || text.includes('barra')) {
-    return 'Actualmente la tienda muestra leggings deportivos, ligas de resistencia, mat de ejercicio y barra de proteína como catálogo principal.';
-  }
-  if (text.includes('hola') || text.includes('buenas')) {
-    return '¡Hola! Con gusto te ayudo. Puedes consultarme sobre productos, pagos, envíos o contacto.';
-  }
-
-  return 'Gracias por tu mensaje. Esta es una simulación de atención al cliente para FitBalance Store. También puedes revisar productos, carrito y métodos de pago interactivos.';
-}
-
-renderCart();
+  return 'Gracias por tu mensaje. Hemos recibido tu consulta correctamente y en breve uno de nuestros asesores se pondrá en contacto contigo.';
+}renderCart();
 const clearChatBtn = document.getElementById('clearChatBtn');
 
 clearChatBtn.addEventListener('click', () => {
