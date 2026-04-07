@@ -210,20 +210,53 @@
       </div>
     </section>
 
-    <section class="section contact-section" id="contacto">
-      <div class="container contact-grid">
+   <section class="section contact-section" id="contacto">
+  <div class="container contact-grid">
+    <div>
+      <div class="section-heading left">
+        <h2>Contáctanos</h2>
+        <p>Simulación de experiencia real de soporte para tienda virtual.</p>
+      </div>
+
+      <div class="contact-card">
+        <p><strong>Instagram:</strong> @fitbalancestorecr</p>
+        <p><strong>Facebook:</strong> FitBalance Store</p>
+        <p><strong>WhatsApp:</strong> 8888-8888</p>
+        <p><strong>Correo:</strong> fitbalance@ejemplo.com</p>
+      </div>
+    </div>
+
+    <div class="chatbot-card">
+      <div class="chatbot-header">
         <div>
-          <div class="section-heading left">
-            <h2>Contáctanos</h2>
-            <p>Simulación de experiencia real de soporte para tienda virtual.</p>
-          </div>
-          <div class="contact-card">
-            <p><strong>Instagram:</strong> @fitbalancestorecr</p>
-            <p><strong>Facebook:</strong> FitBalance Store</p>
-            <p><strong>WhatsApp:</strong> 8888-8888</p>
-            <p><strong>Correo:</strong> fitbalance@ejemplo.com</p>
-          </div>
+          <strong>FitBot</strong>
+          <small>Asistente virtual</small>
         </div>
+
+        <div class="chatbot-actions">
+          <button type="button" id="clearChatBtn" class="icon-btn clear-chat-btn" title="Borrar chat">🗑️</button>
+          <span class="status-dot"></span>
+        </div>
+      </div>
+
+      <div class="chat-window" id="chatWindow">
+        <div class="bot-message">
+          ¡Hola! 👋 Gracias por escribir a FitBalance Store. Hemos recibido tu mensaje y uno de nuestros asesores se pondrá en contacto contigo en breve.
+        </div>
+      </div>
+
+      <form class="chat-form" id="chatForm">
+        <input
+          type="text"
+          id="chatInput"
+          placeholder="Escribe tu consulta..."
+          autocomplete="off"
+        >
+        <button type="submit" class="primary-btn">Enviar</button>
+      </form>
+    </div>
+  </div>
+</section>
 
        <div class="chatbot-card">
   <div class="chatbot-header">
