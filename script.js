@@ -287,6 +287,30 @@ function getBotReply(message) {
   const text = message.toLowerCase();
 
   if (text.includes('env') || text.includes('entrega')) {
+    return 'Gracias por tu consulta 🙌 Un asesor de FitBalance Store se pondrá en contacto contigo en los próximos minutos para brindarte información detallada sobre nuestros envíos a nivel nacional.';
+  }
+
+  if (text.includes('pago') || text.includes('tarjeta') || text.includes('sinpe') || text.includes('transferencia')) {
+    return 'Perfecto 💳 Hemos recibido tu consulta sobre métodos de pago. En breve, uno de nuestros asesores te brindará asistencia personalizada para completar tu compra de forma segura.';
+  }
+
+  if (text.includes('precio') || text.includes('cuesta') || text.includes('valor')) {
+    return 'Gracias por tu interés 💚 Un asesor se pondrá en contacto contigo en los próximos minutos para brindarte información actualizada sobre precios y promociones disponibles.';
+  }
+
+  if (text.includes('producto') || text.includes('leggings') || text.includes('ligas') || text.includes('mat') || text.includes('barra')) {
+    return 'Excelente elección 👌 Hemos recibido tu consulta sobre nuestros productos. En breve, un asesor te brindará recomendaciones personalizadas según tus necesidades.';
+  }
+
+  if (text.includes('hola') || text.includes('buenas')) {
+    return '¡Hola! 👋 Gracias por escribir a FitBalance Store. Hemos recibido tu mensaje y uno de nuestros asesores se pondrá en contacto contigo en breve para ayudarte.';
+  }
+
+  return 'Gracias por tu mensaje 🙌 Hemos recibido tu solicitud correctamente. En los próximos minutos, un asesor de FitBalance Store se pondrá en contacto contigo para brindarte atención personalizada.';
+}
+  const text = message.toLowerCase();
+
+  if (text.includes('env') || text.includes('entrega')) {
     return 'Realizamos envíos a toda Costa Rica mediante mensajería. El tiempo estimado ilustrativo es de 1 a 3 días hábiles.';
   }
   if (text.includes('pago') || text.includes('tarjeta') || text.includes('sinpe') || text.includes('transferencia')) {
