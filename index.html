@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
   <header class="topbar">
     <div class="container nav-wrap">
       <a href="#inicio" class="brand">
@@ -35,20 +36,21 @@
   <main>
     <section class="hero" id="inicio">
       <div class="hero-overlay"></div>
-      <div class="container hero-content">
-  <div class="hero-copy">
-    <h1>Transforma tu vida <br> con <span>FitBalance Store</span></h1>
-    <p>
-      Encuentra lo que necesitás para mantenerte en forma y llevar un estilo
-      de vida saludable desde cualquier parte de Costa Rica.
-    </p>
-    <a class="primary-btn" href="#productos">Ver productos</a>
-  </div>
 
-  <div class="hero-brand-visual">
-    <img src="assets/logo.png" class="hero-logo-large" alt="FitBalance Store logo">
-  </div>
-</div>
+      <div class="container hero-content">
+        <div class="hero-copy">
+          <h1>Transforma tu vida <br> con <span>FitBalance Store</span></h1>
+          <p>
+            Encuentra lo que necesitás para mantenerte en forma y llevar un estilo
+            de vida saludable desde cualquier parte de Costa Rica.
+          </p>
+          <a class="primary-btn" href="#productos">Ver productos</a>
+        </div>
+
+        <div class="hero-brand-visual">
+          <img src="assets/logo.png" class="hero-logo-large" alt="FitBalance Store logo">
+        </div>
+      </div>
     </section>
 
     <section class="section" id="empresa">
@@ -105,9 +107,9 @@
         </div>
 
         <div class="tabs">
-          <button class="tab active">Ropa deportiva</button>
-          <button class="tab">Accesorios fitness</button>
-          <button class="tab">Snacks saludables</button>
+          <button class="tab active" type="button">Ropa deportiva</button>
+          <button class="tab" type="button">Accesorios fitness</button>
+          <button class="tab" type="button">Snacks saludables</button>
         </div>
 
         <div class="product-grid">
@@ -117,11 +119,16 @@
               <h3>Leggings Deportivos</h3>
               <p class="price">₡12,500</p>
               <p class="product-desc">Tela cómoda, ajuste firme y estilo moderno para entrenar con confianza.</p>
-              <button class="primary-btn add-to-cart"
-                      data-id="leggings"
-                      data-name="Leggings Deportivos"
-                      data-price="12500"
-                      data-image="assets/leggings.png">Agregar al carrito</button>
+              <button
+                class="primary-btn add-to-cart"
+                type="button"
+                data-id="leggings"
+                data-name="Leggings Deportivos"
+                data-price="12500"
+                data-image="assets/leggings.png"
+              >
+                Agregar al carrito
+              </button>
             </div>
           </article>
 
@@ -131,11 +138,16 @@
               <h3>Ligas de Resistencia</h3>
               <p class="price">₡7,000</p>
               <p class="product-desc">Ideal para entrenamientos funcionales, fuerza, activación y movilidad.</p>
-              <button class="primary-btn add-to-cart"
-                      data-id="bands"
-                      data-name="Ligas de Resistencia"
-                      data-price="7000"
-                      data-image="assets/bands.png">Agregar al carrito</button>
+              <button
+                class="primary-btn add-to-cart"
+                type="button"
+                data-id="bands"
+                data-name="Ligas de Resistencia"
+                data-price="7000"
+                data-image="assets/bands.png"
+              >
+                Agregar al carrito
+              </button>
             </div>
           </article>
 
@@ -145,11 +157,16 @@
               <h3>Mat de Ejercicio</h3>
               <p class="price">₡10,000</p>
               <p class="product-desc">Superficie cómoda y práctica para yoga, estiramiento y rutinas en casa.</p>
-              <button class="primary-btn add-to-cart"
-                      data-id="mat"
-                      data-name="Mat de Ejercicio"
-                      data-price="10000"
-                      data-image="assets/mat.png">Agregar al carrito</button>
+              <button
+                class="primary-btn add-to-cart"
+                type="button"
+                data-id="mat"
+                data-name="Mat de Ejercicio"
+                data-price="10000"
+                data-image="assets/mat.png"
+              >
+                Agregar al carrito
+              </button>
             </div>
           </article>
 
@@ -159,11 +176,16 @@
               <h3>Barra de Proteína</h3>
               <p class="price">₡1,800</p>
               <p class="product-desc">Snack práctico para acompañar una rutina activa y mantener energía durante el día.</p>
-              <button class="primary-btn add-to-cart"
-                      data-id="protein"
-                      data-name="Barra de Proteína"
-                      data-price="1800"
-                      data-image="assets/protein-bar.png">Agregar al carrito</button>
+              <button
+                class="primary-btn add-to-cart"
+                type="button"
+                data-id="protein"
+                data-name="Barra de Proteína"
+                data-price="1800"
+                data-image="assets/protein-bar.png"
+              >
+                Agregar al carrito
+              </button>
             </div>
           </article>
         </div>
@@ -186,17 +208,19 @@
         </div>
 
         <div class="payment-options">
-          <button class="payment-card" data-payment="card">
+          <button class="payment-card" type="button" data-payment="card">
             <span class="payment-emoji">💳</span>
             <strong>Tarjeta</strong>
             <small>Visa / MasterCard</small>
           </button>
-          <button class="payment-card" data-payment="sinpe">
+
+          <button class="payment-card" type="button" data-payment="sinpe">
             <span class="payment-emoji">📲</span>
             <strong>SINPE Móvil</strong>
             <small>Pago rápido</small>
           </button>
-          <button class="payment-card" data-payment="transfer">
+
+          <button class="payment-card" type="button" data-payment="transfer">
             <span class="payment-emoji">🏦</span>
             <strong>Transferencia</strong>
             <small>Bancaria</small>
@@ -210,108 +234,48 @@
       </div>
     </section>
 
-   <section class="section contact-section" id="contacto">
-  <div class="container contact-grid">
-    <div>
-      <div class="section-heading left">
-        <h2>Contáctanos</h2>
-        <p>Simulación de experiencia real de soporte para tienda virtual.</p>
-      </div>
-
-      <div class="contact-card">
-        <p><strong>Instagram:</strong> @fitbalancestorecr</p>
-        <p><strong>Facebook:</strong> FitBalance Store</p>
-        <p><strong>WhatsApp:</strong> 8888-8888</p>
-        <p><strong>Correo:</strong> fitbalance@ejemplo.com</p>
-      </div>
-    </div>
-
-    <div class="chatbot-card">
-      <div class="chatbot-header">
+    <section class="section contact-section" id="contacto">
+      <div class="container contact-grid">
         <div>
-          <strong>FitBot</strong>
-          <small>Asistente virtual</small>
+          <div class="section-heading left">
+            <h2>Contáctanos</h2>
+            <p>Simulación de experiencia real de soporte para tienda virtual.</p>
+          </div>
+
+          <div class="contact-card">
+            <p><strong>Instagram:</strong> @fitbalancestorecr</p>
+            <p><strong>Facebook:</strong> FitBalance Store</p>
+            <p><strong>WhatsApp:</strong> 8888-8888</p>
+            <p><strong>Correo:</strong> fitbalance@ejemplo.com</p>
+          </div>
         </div>
 
-        <div class="chatbot-actions">
-          <button type="button" id="clearChatBtn" class="icon-btn clear-chat-btn" title="Borrar chat">🗑️</button>
-          <span class="status-dot"></span>
-        </div>
-      </div>
-
-      <div class="chat-window" id="chatWindow">
-        <div class="bot-message">
-          ¡Hola! 👋 Gracias por escribir a FitBalance Store. Hemos recibido tu mensaje y uno de nuestros asesores se pondrá en contacto contigo en breve.
-        </div>
-      </div>
-
-      <form class="chat-form" id="chatForm">
-        <input
-          type="text"
-          id="chatInput"
-          placeholder="Escribe tu consulta..."
-          autocomplete="off"
-        >
-        <button type="submit" class="primary-btn">Enviar</button>
-      </form>
-    </div>
-  </div>
-</section>
-
-       <div class="chatbot-card">
-  <div class="chatbot-header">
-    <div>
-      <strong>FitBot</strong>
-      <small>Asistente virtual</small>
-    </div>
-
-    <div class="chatbot-actions">
-      <button type="button" id="clearChatBtn" class="icon-btn clear-chat-btn" title="Borrar chat">🗑️</button>
-      <span class="status-dot"></span>
-    </div>
-  </div>
-
-  <div class="chat-window" id="chatWindow">
-    <div class="bot-message">
-      ¡Hola! 👋 Gracias por escribir a FitBalance Store. Hemos recibido tu mensaje y uno de nuestros asesores se pondrá en contacto contigo en breve.
-    </div>
-  </div>
-
-  <form class="chat-form" id="chatForm">
-    <input
-      type="text"
-      id="chatInput"
-      placeholder="Escribe tu consulta..."
-      autocomplete="off"
-    >
-    <button type="submit" class="primary-btn">Enviar</button>
-  </form>
-</div>
-
-  <div class="chat-window" id="chatWindow">
-    <div class="bot-message">
-      ¡Hola! 👋 Gracias por escribir a FitBalance Store. Hemos recibido tu mensaje y uno de nuestros asesores se pondrá en contacto contigo en breve.
-    </div>
-  </div>
-
-  <form class="chat-form" id="chatForm">
-    <input type="text" id="chatInput" placeholder="Escribe tu consulta..." autocomplete="off">
-    <button type="submit" class="primary-btn">Enviar</button>
-  </form>
-</div>
+        <div class="chatbot-card">
+          <div class="chatbot-header">
             <div>
               <strong>FitBot</strong>
               <small>Asistente virtual</small>
             </div>
-            <span class="status-dot"></span>
+
+            <div class="chatbot-actions">
+              <button type="button" id="clearChatBtn" class="icon-btn clear-chat-btn" title="Borrar chat">🗑️</button>
+              <span class="status-dot"></span>
+            </div>
           </div>
 
           <div class="chat-window" id="chatWindow">
-            <div class="bot-message">¡Hola! Soy FitBot 👋 ¿Te ayudo con productos, pagos o envíos?</div>
+            <div class="bot-message">
+              ¡Hola! 👋 Gracias por escribir a FitBalance Store. Hemos recibido tu mensaje y uno de nuestros asesores se pondrá en contacto contigo en breve.
+            </div>
           </div>
 
           <form class="chat-form" id="chatForm">
-            <input type="text" id="chatInput" placeholder="Escribe tu consulta..." autocomplete="off">
+            <input
+              type="text"
+              id="chatInput"
+              placeholder="Escribe tu consulta..."
+              autocomplete="off"
+            >
             <button type="submit" class="primary-btn">Enviar</button>
           </form>
         </div>
@@ -319,12 +283,12 @@
     </section>
   </main>
 
-  <button class="floating-chat" id="openChatBtn" aria-label="Abrir chat">💬</button>
+  <button class="floating-chat" id="openChatBtn" type="button" aria-label="Ir al chat">💬</button>
 
   <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
     <div class="cart-header">
       <h2>Tu carrito</h2>
-      <button class="icon-btn" id="closeCartBtn">✕</button>
+      <button class="icon-btn" id="closeCartBtn" type="button">✕</button>
     </div>
 
     <div class="cart-items" id="cartItems"></div>
@@ -338,7 +302,7 @@
         <span>Total de artículos</span>
         <strong id="cartTotalItems">0</strong>
       </div>
-      <button class="primary-btn checkout-btn" id="checkoutBtn">Proceder al pago</button>
+      <button class="primary-btn checkout-btn" id="checkoutBtn" type="button">Proceder al pago</button>
     </div>
   </aside>
 
@@ -348,7 +312,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h2 id="paymentTitle">Método de pago</h2>
-        <button class="icon-btn" id="closePaymentModal">✕</button>
+        <button class="icon-btn" id="closePaymentModal" type="button">✕</button>
       </div>
 
       <div class="modal-body">
@@ -369,10 +333,10 @@
         <h4 class="cart-item-name"></h4>
         <p class="cart-item-price"></p>
         <div class="cart-item-controls">
-          <button class="qty-btn decrease">−</button>
+          <button class="qty-btn decrease" type="button">−</button>
           <span class="cart-item-qty">1</span>
-          <button class="qty-btn increase">+</button>
-          <button class="remove-btn">Quitar</button>
+          <button class="qty-btn increase" type="button">+</button>
+          <button class="remove-btn" type="button">Quitar</button>
         </div>
       </div>
     </article>
