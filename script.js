@@ -340,3 +340,12 @@ clearChatBtn.addEventListener('click', () => {
     </div>
   `;
 });
+const clearChatBtn = document.getElementById('clearChatBtn');
+
+clearChatBtn.addEventListener('click', () => {
+  chatWindow.innerHTML = `
+    <div class="bot-message">
+      Conversación reiniciada ✅ ¿En qué podemos ayudarte hoy? En breve, uno de nuestros asesores podrá atender tu consulta.
+    </div>
+  `;
+});
