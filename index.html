@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FitBalance Store - tienda fitness online con ropa deportiva, accesorios y snacks saludables. Proyecto académico con pagos ficticios." />
+  <title>FitBalance Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-wrap">
+      <a class="brand" href="#inicio" aria-label="Ir al inicio de FitBalance Store">
+        <img src="assets/logo.png" alt="Logo de FitBalance Store" class="brand-logo" />
+      </a>
+
+      <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="main-nav">
+        <a href="#inicio">Inicio</a>
+        <a href="#empresa">Empresa</a>
+        <a href="#productos">Productos</a>
+        <a href="#pagos">Métodos de pago</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <button class="cart-button" type="button" aria-label="Ver carrito demostrativo">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Tienda fitness online · Costa Rica</span>
+          <h1>Transforma tu vida <span>con FitBalance Store</span></h1>
+          <p>
+            Encuentra ropa deportiva, accesorios fitness y snacks saludables en un solo lugar.
+            Proyecto académico de comercio electrónico con experiencia de compra simulada.
+          </p>
+          <div class="hero-actions">
+            <a href="#productos" class="btn btn-primary">Ver productos</a>
+            <a href="#empresa" class="btn btn-secondary">Conocer la marca</a>
+          </div>
+          <ul class="hero-badges">
+            <li>Envíos a toda Costa Rica</li>
+            <li>Pagos ficticios para demostración</li>
+            <li>Marca fitness accesible</li>
+          </ul>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-card main-photo">
+            <img src="assets/leggings.png" alt="Leggings deportivos de FitBalance Store" />
+          </div>
+          <div class="hero-card floating-card">
+            <img src="assets/bands.png" alt="Ligas de resistencia de FitBalance Store" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section company" id="empresa">
+      <div class="container">
+        <div class="section-heading centered">
+          <span class="eyebrow">Nuestra empresa</span>
+          <h2>FitBalance Store</h2>
+          <p>
+            Nace como una propuesta digital orientada a facilitar el acceso a productos fitness de calidad,
+            para personas que desean mejorar su bienestar y comprar de forma rápida, cómoda y segura.
+          </p>
+        </div>
+
+        <div class="company-grid">
+          <article class="info-card">
+            <h3>Historia</h3>
+            <p>
+              FitBalance Store surge como una iniciativa académica enfocada en comercio electrónico.
+              La idea responde al crecimiento de la vida saludable y a la necesidad de adquirir productos
+              fitness desde cualquier lugar del país.
+            </p>
+          </article>
+          <article class="info-card">
+            <h3>Misión</h3>
+            <p>
+              Ofrecer productos fitness accesibles y de buena calidad que contribuyan al bienestar,
+              la salud y la motivación de nuestros clientes.
+            </p>
+          </article>
+          <article class="info-card">
+            <h3>Visión</h3>
+            <p>
+              Posicionarnos como una tienda fitness reconocida en Costa Rica por su cercanía,
+              variedad, innovación y experiencia digital.
+            </p>
+          </article>
+          <article class="info-card">
+            <h3>Valores</h3>
+            <p>
+              Calidad, innovación, responsabilidad, atención al cliente y compromiso con un estilo
+              de vida saludable.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section products" id="productos">
+      <div class="container">
+        <div class="section-heading centered">
+          <span class="eyebrow">Catálogo</span>
+          <h2>Nuestros productos</h2>
+          <p>
+            Una selección de productos fitness de alta calidad para apoyar un estilo de vida saludable.
+          </p>
+        </div>
+
+        <div class="category-tabs">
+          <button class="tab is-active" type="button">Ropa Deportiva</button>
+          <button class="tab" type="button">Accesorios Fitness</button>
+          <button class="tab" type="button">Snacks Saludables</button>
+        </div>
+
+        <div class="product-grid">
+          <article class="product-card">
+            <div class="product-image">
+              <img src="assets/leggings.png" alt="Leggings deportivos" />
+            </div>
+            <div class="product-content">
+              <h3>Leggings Deportivos</h3>
+              <p>Prenda cómoda, moderna y flexible para entrenamientos o uso diario.</p>
+              <div class="product-bottom">
+                <strong>₡12,500</strong>
+                <button class="btn btn-card add-to-cart" data-product="Leggings Deportivos">Agregar al carrito</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image">
+              <img src="assets/bands.png" alt="Ligas de resistencia" />
+            </div>
+            <div class="product-content">
+              <h3>Ligas de Resistencia</h3>
+              <p>Accesorio práctico para fuerza, movilidad, glúteos y entrenamientos en casa.</p>
+              <div class="product-bottom">
+                <strong>₡7,000</strong>
+                <button class="btn btn-card add-to-cart" data-product="Ligas de Resistencia">Agregar al carrito</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image">
+              <img src="assets/mat.png" alt="Mat de ejercicio" />
+            </div>
+            <div class="product-content">
+              <h3>Mat de Ejercicio</h3>
+              <p>Ideal para yoga, pilates y rutinas funcionales con comodidad y estabilidad.</p>
+              <div class="product-bottom">
+                <strong>₡10,000</strong>
+                <button class="btn btn-card add-to-cart" data-product="Mat de Ejercicio">Agregar al carrito</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image">
+              <img src="assets/protein-bar.png" alt="Barra de proteína" />
+            </div>
+            <div class="product-content">
+              <h3>Barra de Proteína</h3>
+              <p>Snack saludable y práctico para complementar una rutina fitness balanceada.</p>
+              <div class="product-bottom">
+                <strong>₡1,800</strong>
+                <button class="btn btn-card add-to-cart" data-product="Barra de Proteína">Agregar al carrito</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section meta-section">
+      <div class="container meta-grid">
+        <article class="meta-card">
+          <h3>Mercado meta</h3>
+          <p>
+            Jóvenes y adultos interesados en el ejercicio, el gimnasio y la vida saludable.
+            Son usuarios activos en redes sociales, valoran la comodidad y buscan productos accesibles.
+          </p>
+        </article>
+        <article class="meta-card">
+          <h3>Distribución</h3>
+          <p>
+            La distribución se plantea a nivel nacional mediante mensajería, permitiendo llevar los
+            productos a distintas zonas de Costa Rica de forma rápida y práctica.
+          </p>
+        </article>
+        <article class="meta-card">
+          <h3>Evento promocional</h3>
+          <p>
+            <strong>Transforma tu vida con FitBalance</strong>: evento de lanzamiento con rutinas en vivo,
+            sorteos y promociones para dar a conocer la marca y atraer nuevos clientes.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section payments" id="pagos">
+      <div class="container payments-wrap">
+        <div class="section-heading centered">
+          <span class="eyebrow">Compra demostrativa</span>
+          <h2>Métodos de pago</h2>
+          <p>
+            Para efectos académicos, esta página utiliza métodos de pago ficticios que simulan una tienda virtual real.
+          </p>
+        </div>
+
+        <div class="payment-icons">
+          <div class="payment-pill">SINPE Móvil</div>
+          <div class="payment-pill">Tarjeta</div>
+          <div class="payment-pill">Transferencia</div>
+        </div>
+
+        <p class="payment-note">
+          Aviso: sitio de demostración académica. No se procesa dinero real ni se recopilan datos bancarios.
+        </p>
+      </div>
+    </section>
+
+    <section class="section contact" id="contacto">
+      <div class="container contact-grid">
+        <div>
+          <span class="eyebrow">Conversemos</span>
+          <h2>Contacto</h2>
+          <p>
+            FitBalance Store se promociona principalmente mediante redes sociales y contenido motivacional.
+            Aquí se muestran medios de contacto simulados para la exposición.
+          </p>
+        </div>
+        <div class="contact-card">
+          <p><strong>Instagram:</strong> @fitbalancestorecr</p>
+          <p><strong>Facebook:</strong> FitBalance Store</p>
+          <p><strong>WhatsApp:</strong> 8888-8888</p>
+          <p><strong>Correo:</strong> fitbalance@ejemplo.com</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <p>© <span id="year"></span> FitBalance Store · Proyecto académico de comercio electrónico.</p>
+      <a href="#inicio">Volver arriba ↑</a>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
