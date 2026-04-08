@@ -46,30 +46,21 @@ function getSubtotal() {
 
 function renderCart() {
   cartItems.innerHTML = '';
-
   const items = Object.values(cart);
 
   if (!items.length) {
-    cartItems.innerHTML = `
-      <div class="cart-empty">
-        Tu carrito está vacío.<br>
-        Agrega productos para continuar.
-      </div>
-    `;
+    cartItems.innerHTML = `<div class="cart-empty">Tu carrito está vacío.<br>Agrega productos para continuar.</div>`;
   } else {
     items.forEach(item => {
       const node = template.content.cloneNode(true);
-
       node.querySelector('.cart-item-image').src = item.image;
       node.querySelector('.cart-item-image').alt = item.name;
       node.querySelector('.cart-item-name').textContent = item.name;
       node.querySelector('.cart-item-price').textContent = formatCRC(item.price);
       node.querySelector('.cart-item-qty').textContent = item.qty;
-
       node.querySelector('.increase').addEventListener('click', () => updateQty(item.id, 1));
       node.querySelector('.decrease').addEventListener('click', () => updateQty(item.id, -1));
       node.querySelector('.remove-btn').addEventListener('click', () => removeItem(item.id));
-
       cartItems.appendChild(node);
     });
   }
@@ -80,11 +71,8 @@ function renderCart() {
 }
 
 function addToCart(item) {
-  if (cart[item.id]) {
-    cart[item.id].qty += 1;
-  } else {
-    cart[item.id] = { ...item, qty: 1 };
-  }
+  if (cart[item.id]) cart[item.id].qty += 1;
+  else cart[item.id] = { ...item, qty: 1 };
   saveCart();
   renderCart();
 }
@@ -92,11 +80,7 @@ function addToCart(item) {
 function updateQty(id, change) {
   if (!cart[id]) return;
   cart[id].qty += change;
-
-  if (cart[id].qty <= 0) {
-    delete cart[id];
-  }
-
+  if (cart[id].qty <= 0) delete cart[id];
   saveCart();
   renderCart();
 }
@@ -116,10 +100,7 @@ function openCart() {
 function closeCart() {
   cartDrawer.classList.remove('open');
   cartDrawer.setAttribute('aria-hidden', 'true');
-
-  if (!paymentModal.classList.contains('show')) {
-    overlay.classList.remove('show');
-  }
+  if (!paymentModal.classList.contains('show')) overlay.classList.remove('show');
 }
 
 function openPaymentModal(type) {
@@ -228,10 +209,7 @@ function openPaymentModal(type) {
 function closePaymentModal() {
   paymentModal.classList.remove('show');
   paymentModal.setAttribute('aria-hidden', 'true');
-
-  if (!cartDrawer.classList.contains('open')) {
-    overlay.classList.remove('show');
-  }
+  if (!cartDrawer.classList.contains('open')) overlay.classList.remove('show');
 }
 
 document.querySelectorAll('.add-to-cart').forEach(button => {
@@ -264,25 +242,16 @@ overlay.addEventListener('click', () => {
 });
 
 document.querySelectorAll('.payment-card').forEach(card => {
-  card.addEventListener('click', () => {
-    openPaymentModal(card.dataset.payment);
-  });
+  card.addEventListener('click', () => openPaymentModal(card.dataset.payment));
 });
 
 closePaymentModalBtn.addEventListener('click', closePaymentModal);
 
 paymentForm.addEventListener('submit', (e) => {
   e.preventDefault();
-
   const method = paymentForm.dataset.method || 'card';
-  const methodLabel =
-    method === 'card'
-      ? 'Tarjeta'
-      : method === 'sinpe'
-      ? 'SINPE Móvil'
-      : 'Transferencia bancaria';
-
-  alert(`Pago simulado confirmado con el método: ${methodLabel}.`);
+  const label = method === 'card' ? 'Tarjeta' : method === 'sinpe' ? 'SINPE Móvil' : 'Transferencia bancaria';
+  alert(`Pago simulado confirmado con el método: ${label}.`);
   closePaymentModal();
 });
 
@@ -296,58 +265,26 @@ function appendMessage(text, sender) {
 
 function getBotReply(message) {
   const text = message.toLowerCase();
-
-  if (text.includes('env') || text.includes('entrega')) {
-    return 'Gracias por tu consulta. En breve, uno de nuestros asesores se pondrá en contacto contigo para brindarte información sobre envíos y tiempos de entrega.';
-  }
-
-  if (text.includes('pago') || text.includes('tarjeta') || text.includes('sinpe') || text.includes('transferencia')) {
-    return 'Hemos recibido tu consulta sobre métodos de pago. En los próximos minutos, un asesor de FitBalance Store podrá ayudarte con la información correspondiente.';
-  }
-
-  if (text.includes('precio') || text.includes('cuesta') || text.includes('valor')) {
-    return 'Gracias por tu interés. Un asesor se pondrá en contacto contigo en breve para brindarte detalles sobre precios y promociones disponibles.';
-  }
-
-  if (
-    text.includes('producto') ||
-    text.includes('leggings') ||
-    text.includes('ligas') ||
-    text.includes('mat') ||
-    text.includes('barra')
-  ) {
-    return 'Gracias por escribirnos. En breve, uno de nuestros asesores podrá brindarte orientación sobre los productos disponibles y sus características.';
-  }
-
-  if (text.includes('hola') || text.includes('buenas')) {
-    return '¡Hola! Gracias por comunicarte con FitBalance Store. Hemos recibido tu mensaje y en breve uno de nuestros asesores podrá atenderte.';
-  }
-
+  if (text.includes('env') || text.includes('entrega')) return 'Gracias por tu consulta. En breve, uno de nuestros asesores se pondrá en contacto contigo para brindarte información sobre envíos y tiempos de entrega.';
+  if (text.includes('pago') || text.includes('tarjeta') || text.includes('sinpe') || text.includes('transferencia')) return 'Hemos recibido tu consulta sobre métodos de pago. En los próximos minutos, un asesor de FitBalance Store podrá ayudarte con la información correspondiente.';
+  if (text.includes('precio') || text.includes('cuesta') || text.includes('valor')) return 'Gracias por tu interés. Un asesor se pondrá en contacto contigo en breve para brindarte detalles sobre precios y promociones disponibles.';
+  if (text.includes('producto') || text.includes('leggings') || text.includes('ligas') || text.includes('mat') || text.includes('barra') || text.includes('camiseta') || text.includes('top')) return 'Gracias por escribirnos. En breve, uno de nuestros asesores podrá brindarte orientación sobre los productos disponibles y sus características.';
+  if (text.includes('hola') || text.includes('buenas')) return '¡Hola! Gracias por comunicarte con FitBalance Store. Hemos recibido tu mensaje y en breve uno de nuestros asesores podrá atenderte.';
   return 'Gracias por tu mensaje. Hemos recibido tu consulta correctamente y en breve uno de nuestros asesores se pondrá en contacto contigo.';
 }
 
 chatForm.addEventListener('submit', (e) => {
   e.preventDefault();
-
   const message = chatInput.value.trim();
   if (!message) return;
-
   appendMessage(message, 'user');
   chatInput.value = '';
-
-  setTimeout(() => {
-    appendMessage(getBotReply(message), 'bot');
-  }, 500);
+  setTimeout(() => appendMessage(getBotReply(message), 'bot'), 500);
 });
 
 clearChatBtn.addEventListener('click', () => {
-  // Limpiar completamente el chat
   chatWindow.innerHTML = '';
-
-  // Opcional: limpiar input también
-  userInput.value = '';
-
-  // Opcional: resetear scroll
+  chatInput.value = '';
   chatWindow.scrollTop = 0;
 });
 
