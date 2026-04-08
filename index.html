@@ -10,13 +10,11 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
   <header class="topbar">
     <div class="container nav-wrap">
       <a href="#inicio" class="brand">
         <img src="assets/logo.png" alt="FitBalance Store logo">
       </a>
-
       <nav class="nav">
         <a href="#inicio">Inicio</a>
         <a href="#empresa">Empresa</a>
@@ -24,8 +22,7 @@
         <a href="#pagos">Métodos de pago</a>
         <a href="#contacto">Contacto</a>
       </nav>
-
-      <button class="cart-button" id="openCartBtn" aria-label="Abrir carrito">
+      <button class="cart-button" id="openCartBtn" type="button" aria-label="Abrir carrito">
         <span class="cart-icon">🛒</span>
         <span>Carrito</span>
         <span class="cart-badge" id="cartCount">0</span>
@@ -36,17 +33,12 @@
   <main>
     <section class="hero" id="inicio">
       <div class="hero-overlay"></div>
-
       <div class="container hero-content">
         <div class="hero-copy">
           <h1>Transforma tu vida <br> con <span>FitBalance Store</span></h1>
-          <p>
-            Encuentra lo que necesitás para mantenerte en forma y llevar un estilo
-            de vida saludable desde cualquier parte de Costa Rica.
-          </p>
+          <p>Encuentra lo que necesitás para mantenerte en forma y llevar un estilo de vida saludable desde cualquier parte de Costa Rica.</p>
           <a class="primary-btn" href="#productos">Ver productos</a>
         </div>
-
         <div class="hero-brand-visual">
           <img src="assets/logo.png" class="hero-logo-large" alt="FitBalance Store logo">
         </div>
@@ -57,41 +49,24 @@
       <div class="container">
         <div class="section-heading">
           <h2>Sobre la empresa</h2>
-          <p>
-            FitBalance Store nace como una propuesta digital enfocada en ropa deportiva,
-            accesorios fitness y snacks saludables, dirigida a jóvenes y adultos que desean
-            mejorar su bienestar con una experiencia de compra práctica, moderna y accesible.
-          </p>
+          <p>FitBalance Store nace como una propuesta digital enfocada en ropa deportiva, accesorios fitness y snacks saludables, dirigida a jóvenes y adultos que desean mejorar su bienestar con una experiencia de compra práctica, moderna y accesible.</p>
         </div>
-
         <div class="info-grid">
           <article class="info-card">
             <h3>Historia</h3>
-            <p>
-              La marca surge como una iniciativa académica orientada al comercio electrónico,
-              pensada para responder a la tendencia actual de consumo saludable y compra en línea.
-            </p>
+            <p>La marca surge como una iniciativa académica orientada al comercio electrónico, pensada para responder a la tendencia actual de consumo saludable y compra en línea.</p>
           </article>
-
           <article class="info-card">
             <h3>Misión</h3>
-            <p>
-              Ofrecer productos fitness accesibles y de calidad que contribuyan al bienestar y al estilo de vida saludable.
-            </p>
+            <p>Ofrecer productos fitness accesibles y de calidad que contribuyan al bienestar y al estilo de vida saludable.</p>
           </article>
-
           <article class="info-card">
             <h3>Visión</h3>
-            <p>
-              Posicionarse como una tienda fitness reconocida en Costa Rica dentro del mercado digital.
-            </p>
+            <p>Posicionarse como una tienda fitness reconocida en Costa Rica dentro del mercado digital.</p>
           </article>
-
           <article class="info-card">
             <h3>Valores</h3>
-            <p>
-              Calidad, innovación, responsabilidad y atención cercana al cliente en cada etapa de la compra.
-            </p>
+            <p>Calidad, innovación, responsabilidad y atención cercana al cliente en cada etapa de la compra.</p>
           </article>
         </div>
       </div>
@@ -101,9 +76,7 @@
       <div class="container">
         <div class="section-heading">
           <h2>Nuestros productos</h2>
-          <p>
-            Una selección fitness pensada para entrenamiento, comodidad y nutrición, con un estilo visual moderno y atractivo.
-          </p>
+          <p>Una selección fitness pensada para entrenamiento, comodidad y nutrición, con un estilo visual moderno y atractivo.</p>
         </div>
 
         <div class="tabs">
@@ -119,16 +92,37 @@
               <h3>Leggings Deportivos</h3>
               <p class="price">₡12,500</p>
               <p class="product-desc">Tela cómoda, ajuste firme y estilo moderno para entrenar con confianza.</p>
-              <button
-                class="primary-btn add-to-cart"
-                type="button"
-                data-id="leggings"
-                data-name="Leggings Deportivos"
-                data-price="12500"
-                data-image="assets/leggings.png"
-              >
-                Agregar al carrito
-              </button>
+              <button class="primary-btn add-to-cart" type="button" data-id="leggings" data-name="Leggings Deportivos" data-price="12500" data-image="assets/leggings.png">Agregar al carrito</button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <img src="assets/women-top.svg" alt="Top deportivo mujer">
+            <div class="product-body">
+              <h3>Top Deportivo Mujer</h3>
+              <p class="price">₡8,900</p>
+              <p class="product-desc">Prenda ligera y cómoda, ideal para rutinas de gimnasio o entrenamiento funcional.</p>
+              <button class="primary-btn add-to-cart" type="button" data-id="womentop" data-name="Top Deportivo Mujer" data-price="8900" data-image="assets/women-top.svg">Agregar al carrito</button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <img src="assets/women-shirt.svg" alt="Camiseta deportiva mujer">
+            <div class="product-body">
+              <h3>Camiseta Mujer</h3>
+              <p class="price">₡9,500</p>
+              <p class="product-desc">Diseño fresco y versátil para entrenamiento, caminatas y uso deportivo diario.</p>
+              <button class="primary-btn add-to-cart" type="button" data-id="womenshirt" data-name="Camiseta Mujer" data-price="9500" data-image="assets/women-shirt.svg">Agregar al carrito</button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <img src="assets/men-shirt.svg" alt="Camiseta deportiva hombre">
+            <div class="product-body">
+              <h3>Camiseta Hombre</h3>
+              <p class="price">₡10,500</p>
+              <p class="product-desc">Corte deportivo y cómodo para entrenar con libertad de movimiento y estilo.</p>
+              <button class="primary-btn add-to-cart" type="button" data-id="menshirt" data-name="Camiseta Hombre" data-price="10500" data-image="assets/men-shirt.svg">Agregar al carrito</button>
             </div>
           </article>
 
@@ -138,16 +132,7 @@
               <h3>Ligas de Resistencia</h3>
               <p class="price">₡7,000</p>
               <p class="product-desc">Ideal para entrenamientos funcionales, fuerza, activación y movilidad.</p>
-              <button
-                class="primary-btn add-to-cart"
-                type="button"
-                data-id="bands"
-                data-name="Ligas de Resistencia"
-                data-price="7000"
-                data-image="assets/bands.png"
-              >
-                Agregar al carrito
-              </button>
+              <button class="primary-btn add-to-cart" type="button" data-id="bands" data-name="Ligas de Resistencia" data-price="7000" data-image="assets/bands.png">Agregar al carrito</button>
             </div>
           </article>
 
@@ -157,16 +142,7 @@
               <h3>Mat de Ejercicio</h3>
               <p class="price">₡10,000</p>
               <p class="product-desc">Superficie cómoda y práctica para yoga, estiramiento y rutinas en casa.</p>
-              <button
-                class="primary-btn add-to-cart"
-                type="button"
-                data-id="mat"
-                data-name="Mat de Ejercicio"
-                data-price="10000"
-                data-image="assets/mat.png"
-              >
-                Agregar al carrito
-              </button>
+              <button class="primary-btn add-to-cart" type="button" data-id="mat" data-name="Mat de Ejercicio" data-price="10000" data-image="assets/mat.png">Agregar al carrito</button>
             </div>
           </article>
 
@@ -176,26 +152,14 @@
               <h3>Barra de Proteína</h3>
               <p class="price">₡1,800</p>
               <p class="product-desc">Snack práctico para acompañar una rutina activa y mantener energía durante el día.</p>
-              <button
-                class="primary-btn add-to-cart"
-                type="button"
-                data-id="protein"
-                data-name="Barra de Proteína"
-                data-price="1800"
-                data-image="assets/protein-bar.png"
-              >
-                Agregar al carrito
-              </button>
+              <button class="primary-btn add-to-cart" type="button" data-id="protein" data-name="Barra de Proteína" data-price="1800" data-image="assets/protein-bar.png">Agregar al carrito</button>
             </div>
           </article>
         </div>
 
         <div class="market-box">
           <h3>Mercado meta</h3>
-          <p>
-            Jóvenes y adultos interesados en ejercicio, gimnasio y estilo de vida saludable, usuarios activos de redes sociales
-            y acostumbrados a comprar por internet.
-          </p>
+          <p>Jóvenes y adultos interesados en ejercicio, gimnasio y estilo de vida saludable, usuarios activos de redes sociales y acostumbrados a comprar por internet.</p>
         </div>
       </div>
     </section>
@@ -206,30 +170,53 @@
           <h2>Métodos de pago</h2>
           <p>Interacción simulada con fines ilustrativos. No se procesan pagos reales.</p>
         </div>
-
         <div class="payment-options">
           <button class="payment-card" type="button" data-payment="card">
             <span class="payment-emoji">💳</span>
             <strong>Tarjeta</strong>
             <small>Visa / MasterCard</small>
           </button>
-
           <button class="payment-card" type="button" data-payment="sinpe">
             <span class="payment-emoji">📲</span>
             <strong>SINPE Móvil</strong>
             <small>Pago rápido</small>
           </button>
-
           <button class="payment-card" type="button" data-payment="transfer">
             <span class="payment-emoji">🏦</span>
             <strong>Transferencia</strong>
             <small>Bancaria</small>
           </button>
         </div>
+      </div>
+    </section>
 
-        <div class="shipping-note">
-          <p><strong>Distribución:</strong> envíos a nivel nacional en Costa Rica mediante mensajería.</p>
-          <p><strong>Evento promocional:</strong> “Transforma tu vida con FitBalance”, con rutinas en vivo, promociones y sorteos.</p>
+    <section class="section logistics-section">
+      <div class="container">
+        <div class="two-panel-grid">
+          <div class="shipping-note">
+            <h3>Distribución</h3>
+            <p><strong>Envíos a nivel nacional en Costa Rica mediante mensajería.</strong></p>
+            <p>La tienda proyecta entregar pedidos de forma práctica y segura, brindando cobertura nacional y facilidad para el cliente.</p>
+          </div>
+
+          <div class="event-panel">
+            <h3>Evento promocional</h3>
+            <p><strong>“Transforma tu vida con FitBalance”</strong>, una experiencia para dar a conocer la marca con rutinas en vivo, promociones y sorteos.</p>
+            <div class="event-gallery">
+              <figure class="event-card">
+                <img src="assets/event-1.svg" alt="Rutinas en vivo">
+                <figcaption>Rutinas en vivo</figcaption>
+              </figure>
+              <figure class="event-card">
+                <img src="assets/event-2.svg" alt="Promociones especiales">
+                <figcaption>Promociones especiales</figcaption>
+              </figure>
+              <figure class="event-card">
+                <img src="assets/event-3.svg" alt="Sorteos y premios">
+                <figcaption>Sorteos y premios</figcaption>
+              </figure>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -241,10 +228,10 @@
             <h2>Contáctanos</h2>
             <p>Simulación de experiencia real de soporte para tienda virtual.</p>
           </div>
-
           <div class="contact-card">
             <p><strong>Instagram:</strong> @fitbalancestorecr</p>
             <p><strong>Facebook:</strong> FitBalance Store</p>
+            <p><strong>TikTok:</strong> @fitbalancestorecr</p>
             <p><strong>WhatsApp:</strong> 8888-8888</p>
             <p><strong>Correo:</strong> fitbalance@ejemplo.com</p>
           </div>
@@ -256,22 +243,14 @@
               <strong>FitBot</strong>
               <small>Asistente virtual</small>
             </div>
-
             <div class="chatbot-actions">
               <button type="button" id="clearChatBtn" class="icon-btn clear-chat-btn" title="Borrar chat">🗑️</button>
               <span class="status-dot"></span>
             </div>
           </div>
-
           <div class="chat-window" id="chatWindow"></div>
-
           <form class="chat-form" id="chatForm">
-            <input
-              type="text"
-              id="chatInput"
-              placeholder="Escribe tu consulta..."
-              autocomplete="off"
-            >
+            <input type="text" id="chatInput" placeholder="Escribe tu consulta..." autocomplete="off">
             <button type="submit" class="primary-btn">Enviar</button>
           </form>
         </div>
@@ -284,11 +263,9 @@
   <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
     <div class="cart-header">
       <h2>Tu carrito</h2>
-      <button class="icon-btn" id="closeCartBtn" type="button">✕</button>
+      <button class="icon-btn neutral-btn" id="closeCartBtn" type="button">✕</button>
     </div>
-
     <div class="cart-items" id="cartItems"></div>
-
     <div class="cart-summary">
       <div class="summary-row">
         <span>Subtotal</span>
@@ -308,12 +285,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <h2 id="paymentTitle">Método de pago</h2>
-        <button class="icon-btn" id="closePaymentModal" type="button">✕</button>
+        <button class="icon-btn neutral-btn" id="closePaymentModal" type="button">✕</button>
       </div>
-
       <div class="modal-body">
         <p class="payment-warning">Simulación académica: no se procesarán datos reales.</p>
-
         <form id="paymentForm">
           <div id="paymentFields"></div>
           <button type="submit" class="primary-btn full-width">Confirmar pago simulado</button>
