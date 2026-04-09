@@ -28,8 +28,7 @@ const paymentCards = document.querySelectorAll('.payment-card');
 const addToCartButtons = document.querySelectorAll('.add-to-cart');
 const mainSections = document.querySelectorAll('[data-main-section]');
 const sectionButtons = document.querySelectorAll('[data-section-target]');
-const sectionTabbar = document.querySelector('.section-tabbar');
-
+const navLinks = document.querySelectorAll('.nav a[data-section-target]');
 
 function formatCRC(amount) {
   return new Intl.NumberFormat('es-CR', {
@@ -71,18 +70,6 @@ function closeCart() {
   closeOverlayIfIdle();
 }
 
-function openPaymentModal(method = 'Pago simulado') {
-  paymentTitle.textContent = method;
-  paymentFields.innerHTML = buildPaymentFields(method);
-  paymentModal.classList.add('show');
-  openOverlay();
-}
-
-function closePaymentModal() {
-  paymentModal.classList.remove('show');
-  closeOverlayIfIdle();
-}
-
 function buildPaymentFields(method) {
   if (method.includes('Tarjeta')) {
     return `
@@ -113,6 +100,18 @@ function buildPaymentFields(method) {
     </div>
     <p class="helper-text">La transferencia es ilustrativa y no genera cobros reales.</p>
   `;
+}
+
+function openPaymentModal(method = 'Pago simulado') {
+  paymentTitle.textContent = method;
+  paymentFields.innerHTML = buildPaymentFields(method);
+  paymentModal.classList.add('show');
+  openOverlay();
+}
+
+function closePaymentModal() {
+  paymentModal.classList.remove('show');
+  closeOverlayIfIdle();
 }
 
 function renderCart() {
@@ -148,13 +147,7 @@ function addItem(name, price, image) {
     cart[name] = { name, price: Number(price), image, qty: 0 };
   }
   cart[name].qty += 1;
-  
-const initialHash = window.location.hash.replace('#', '');
-const validSectionIds = Array.from(mainSections).map((section) => section.id);
-activateMainSection(validSectionIds.includes(initialHash) ? initialHash : 'empresa', false);
-
-renderCart();
-
+  renderCart();
   openCart();
 }
 
@@ -170,7 +163,6 @@ function removeItem(name) {
   renderCart();
 }
 
-
 function activateMainSection(targetId, pushHash = true) {
   if (!targetId) return;
 
@@ -181,34 +173,27 @@ function activateMainSection(targetId, pushHash = true) {
   sectionButtons.forEach((button) => {
     const isActive = button.dataset.sectionTarget === targetId;
     button.classList.toggle('active', isActive);
-    if (button.classList.contains('section-tab-btn')) {
-      button.setAttribute('aria-selected', isActive ? 'true' : 'false');
-    }
+  });
+
+  navLinks.forEach((link) => {
+    link.classList.toggle('active', link.dataset.sectionTarget === targetId);
   });
 
   if (pushHash) {
     history.replaceState(null, '', `#${targetId}`);
   }
 
-  if (sectionTabbar) {
-    const topPosition = sectionTabbar.getBoundingClientRect().top + window.scrollY - 100;
-    window.scrollTo({ top: topPosition, behavior: 'smooth' });
+  const topbar = document.querySelector('.topbar');
+  const offset = topbar ? topbar.offsetHeight : 0;
+  const firstSection = document.getElementById(targetId);
+  if (firstSection) {
+    const targetTop = firstSection.getBoundingClientRect().top + window.scrollY - offset - 8;
+    window.scrollTo({ top: targetTop, behavior: 'smooth' });
   }
 }
 
 function activateCompanyPanel(targetId) {
-  
-sectionButtons.forEach((button) => {
-  button.addEventListener('click', (event) => {
-    const targetId = button.dataset.sectionTarget;
-    if (!targetId) return;
-
-    event.preventDefault();
-    activateMainSection(targetId);
-  });
-});
-
-companyLinks.forEach((link) => {
+  companyLinks.forEach((link) => {
     link.classList.toggle('active', link.dataset.companyTarget === targetId);
   });
 
@@ -244,7 +229,6 @@ function buildBotReply(message) {
   }
   return 'Gracias por tu mensaje. En esta simulación académica puedo orientarte sobre productos, pagos y envíos.';
 }
-
 
 sectionButtons.forEach((button) => {
   button.addEventListener('click', (event) => {
@@ -292,18 +276,9 @@ paymentCards.forEach((card) => {
 });
 
 openCartBtn.addEventListener('click', openCart);
-
-if (openChatBtn) {
-  openChatBtn.addEventListener('click', () => {
-    activateMainSection('contacto');
-    setTimeout(() => {
-      chatInput?.focus();
-    }, 250);
-  });
-}
-
 closeCartBtn.addEventListener('click', closeCart);
 closePaymentModalBtn.addEventListener('click', closePaymentModal);
+
 overlay.addEventListener('click', () => {
   closeCart();
   closePaymentModal();
@@ -336,10 +311,17 @@ clearChatBtn.addEventListener('click', () => {
   chatWindow.innerHTML = '<div class="bot-message">¡Hola! Soy FitBot. ¿Te ayudo con productos, pagos o envíos?</div>';
 });
 
-openChatBtn.addEventListener('click', () => {
-  document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
-  chatInput.focus();
-});
+if (openChatBtn) {
+  openChatBtn.addEventListener('click', () => {
+    activateMainSection('contacto');
+    setTimeout(() => {
+      chatInput?.focus();
+    }, 250);
+  });
+}
 
-renderCart();
+const initialHash = window.location.hash.replace('#', '');
+const validSectionIds = Array.from(mainSections).map((section) => section.id);
+activateMainSection(validSectionIds.includes(initialHash) ? initialHash : 'empresa', false);
 activateCompanyPanel('historia');
+renderCart();
