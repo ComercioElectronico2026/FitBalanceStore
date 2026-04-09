@@ -1,5 +1,4 @@
 const cart = JSON.parse(localStorage.getItem('fitbalance-cart') || '{}');
-
 const cartDrawer = document.getElementById('cartDrawer');
 const overlay = document.getElementById('overlay');
 const cartItems = document.getElementById('cartItems');
@@ -7,28 +6,36 @@ const cartCount = document.getElementById('cartCount');
 const cartSubtotal = document.getElementById('cartSubtotal');
 const cartTotalItems = document.getElementById('cartTotalItems');
 const template = document.getElementById('cartItemTemplate');
-
 const paymentModal = document.getElementById('paymentModal');
 const paymentTitle = document.getElementById('paymentTitle');
 const paymentFields = document.getElementById('paymentFields');
 const paymentForm = document.getElementById('paymentForm');
-
 const openCartBtn = document.getElementById('openCartBtn');
 const closeCartBtn = document.getElementById('closeCartBtn');
 const checkoutBtn = document.getElementById('checkoutBtn');
 const closePaymentModalBtn = document.getElementById('closePaymentModal');
-
 const chatWindow = document.getElementById('chatWindow');
 const chatForm = document.getElementById('chatForm');
 const chatInput = document.getElementById('chatInput');
 const clearChatBtn = document.getElementById('clearChatBtn');
 const openChatBtn = document.getElementById('openChatBtn');
+const companyLinks = document.querySelectorAll('.company-link');
+const companyPanels = document.querySelectorAll('[data-company-panel]');
+const companySelect = document.getElementById('companySelect');
+const productTabs = document.querySelectorAll('.tab');
+const productCards = document.querySelectorAll('.product-card');
+const paymentCards = document.querySelectorAll('.payment-card');
+const addToCartButtons = document.querySelectorAll('.add-to-cart');
+const mainSections = document.querySelectorAll('[data-main-section]');
+const sectionButtons = document.querySelectorAll('[data-section-target]');
+const sectionTabbar = document.querySelector('.section-tabbar');
+
 
 function formatCRC(amount) {
   return new Intl.NumberFormat('es-CR', {
     style: 'currency',
     currency: 'CRC',
-    maximumFractionDigits: 0
+    maximumFractionDigits: 0,
   }).format(amount);
 }
 
@@ -44,253 +51,295 @@ function getSubtotal() {
   return Object.values(cart).reduce((acc, item) => acc + item.price * item.qty, 0);
 }
 
+function openOverlay() {
+  overlay.classList.add('show');
+}
+
+function closeOverlayIfIdle() {
+  if (!cartDrawer.classList.contains('open') && !paymentModal.classList.contains('show')) {
+    overlay.classList.remove('show');
+  }
+}
+
+function openCart() {
+  cartDrawer.classList.add('open');
+  openOverlay();
+}
+
+function closeCart() {
+  cartDrawer.classList.remove('open');
+  closeOverlayIfIdle();
+}
+
+function openPaymentModal(method = 'Pago simulado') {
+  paymentTitle.textContent = method;
+  paymentFields.innerHTML = buildPaymentFields(method);
+  paymentModal.classList.add('show');
+  openOverlay();
+}
+
+function closePaymentModal() {
+  paymentModal.classList.remove('show');
+  closeOverlayIfIdle();
+}
+
+function buildPaymentFields(method) {
+  if (method.includes('Tarjeta')) {
+    return `
+      <div class="field-grid">
+        <div class="field"><label>Número de tarjeta</label><input type="text" placeholder="0000 0000 0000 0000" /></div>
+        <div class="field"><label>Nombre del titular</label><input type="text" placeholder="Nombre completo" /></div>
+        <div class="field"><label>Vencimiento</label><input type="text" placeholder="MM/AA" /></div>
+        <div class="field"><label>CVV</label><input type="text" placeholder="123" /></div>
+      </div>
+      <p class="helper-text">Simulación académica: los datos ingresados no se almacenan ni procesan.</p>
+    `;
+  }
+
+  if (method.includes('SINPE')) {
+    return `
+      <div class="field-grid">
+        <div class="field full"><label>Número SINPE Móvil</label><input type="text" placeholder="8888-8888" /></div>
+        <div class="field full"><label>Nombre del pagador</label><input type="text" placeholder="Nombre completo" /></div>
+      </div>
+      <p class="helper-text">Podés simular un pago rápido y continuar con tu compra.</p>
+    `;
+  }
+
+  return `
+    <div class="field-grid">
+      <div class="field full"><label>Banco de origen</label><input type="text" placeholder="Ejemplo: BAC / BN / BCR" /></div>
+      <div class="field full"><label>Número de comprobante</label><input type="text" placeholder="000000" /></div>
+    </div>
+    <p class="helper-text">La transferencia es ilustrativa y no genera cobros reales.</p>
+  `;
+}
+
 function renderCart() {
   cartItems.innerHTML = '';
   const items = Object.values(cart);
 
   if (!items.length) {
-    cartItems.innerHTML = `<div class="cart-empty">Tu carrito está vacío.<br>Agrega productos para continuar.</div>`;
-  } else {
-    items.forEach(item => {
-      const node = template.content.cloneNode(true);
-      node.querySelector('.cart-item-image').src = item.image;
-      node.querySelector('.cart-item-image').alt = item.name;
-      node.querySelector('.cart-item-name').textContent = item.name;
-      node.querySelector('.cart-item-price').textContent = formatCRC(item.price);
-      node.querySelector('.cart-item-qty').textContent = item.qty;
-      node.querySelector('.increase').addEventListener('click', () => updateQty(item.id, 1));
-      node.querySelector('.decrease').addEventListener('click', () => updateQty(item.id, -1));
-      node.querySelector('.remove-btn').addEventListener('click', () => removeItem(item.id));
-      cartItems.appendChild(node);
-    });
+    cartItems.innerHTML = '<p class="cart-empty">Todavía no agregaste productos al carrito.</p>';
   }
 
+  items.forEach((item) => {
+    const node = template.content.firstElementChild.cloneNode(true);
+    node.querySelector('.cart-item-image').src = item.image;
+    node.querySelector('.cart-item-image').alt = item.name;
+    node.querySelector('.cart-item-name').textContent = item.name;
+    node.querySelector('.cart-item-price').textContent = formatCRC(item.price);
+    node.querySelector('.cart-item-qty').textContent = item.qty;
+
+    node.querySelector('.qty-minus').addEventListener('click', () => updateQty(item.name, -1));
+    node.querySelector('.qty-plus').addEventListener('click', () => updateQty(item.name, 1));
+    node.querySelector('.remove-btn').addEventListener('click', () => removeItem(item.name));
+    cartItems.appendChild(node);
+  });
+
   cartCount.textContent = getTotalItems();
-  cartTotalItems.textContent = getTotalItems();
   cartSubtotal.textContent = formatCRC(getSubtotal());
+  cartTotalItems.textContent = getTotalItems();
+  saveCart();
 }
 
-function addToCart(item) {
-  if (cart[item.id]) cart[item.id].qty += 1;
-  else cart[item.id] = { ...item, qty: 1 };
-  saveCart();
+function addItem(name, price, image) {
+  if (!cart[name]) {
+    cart[name] = { name, price: Number(price), image, qty: 0 };
+  }
+  cart[name].qty += 1;
+  
+const initialHash = window.location.hash.replace('#', '');
+const validSectionIds = Array.from(mainSections).map((section) => section.id);
+activateMainSection(validSectionIds.includes(initialHash) ? initialHash : 'empresa', false);
+
+renderCart();
+
+  openCart();
+}
+
+function updateQty(name, delta) {
+  if (!cart[name]) return;
+  cart[name].qty += delta;
+  if (cart[name].qty <= 0) delete cart[name];
   renderCart();
 }
 
-function updateQty(id, change) {
-  if (!cart[id]) return;
-  cart[id].qty += change;
-  if (cart[id].qty <= 0) delete cart[id];
-  saveCart();
+function removeItem(name) {
+  delete cart[name];
   renderCart();
 }
 
-function removeItem(id) {
-  delete cart[id];
-  saveCart();
-  renderCart();
-}
 
-function openCart() {
-  cartDrawer.classList.add('open');
-  overlay.classList.add('show');
-  cartDrawer.setAttribute('aria-hidden', 'false');
-}
+function activateMainSection(targetId, pushHash = true) {
+  if (!targetId) return;
 
-function closeCart() {
-  cartDrawer.classList.remove('open');
-  cartDrawer.setAttribute('aria-hidden', 'true');
-  if (!paymentModal.classList.contains('show')) overlay.classList.remove('show');
-}
+  mainSections.forEach((section) => {
+    section.classList.toggle('active', section.id === targetId);
+  });
 
-function openPaymentModal(type) {
-  paymentModal.classList.add('show');
-  overlay.classList.add('show');
-  paymentModal.setAttribute('aria-hidden', 'false');
-
-  const total = formatCRC(getSubtotal());
-  const totalItems = getTotalItems();
-
-  const forms = {
-    card: {
-      title: 'Pago con tarjeta',
-      html: `
-        <div class="field">
-          <label>Nombre del titular</label>
-          <input type="text" placeholder="Ej. Rafael López" required>
-        </div>
-        <div class="field">
-          <label>Número de tarjeta</label>
-          <input type="text" placeholder="1234 5678 9012 3456" maxlength="19" required>
-        </div>
-        <div class="field-grid">
-          <div class="field">
-            <label>Vencimiento</label>
-            <input type="text" placeholder="MM/AA" maxlength="5" required>
-          </div>
-          <div class="field">
-            <label>CVV</label>
-            <input type="password" placeholder="123" maxlength="4" required>
-          </div>
-        </div>
-        <div class="field">
-          <label>Correo electrónico</label>
-          <input type="email" placeholder="cliente@ejemplo.com" required>
-        </div>
-        <p class="helper-text">Resumen: ${totalItems} artículo(s) | Total: ${total}</p>
-      `
-    },
-    sinpe: {
-      title: 'Pago por SINPE Móvil',
-      html: `
-        <div class="field">
-          <label>Nombre completo</label>
-          <input type="text" placeholder="Ej. Rafael López" required>
-        </div>
-        <div class="field-grid">
-          <div class="field">
-            <label>Número SINPE</label>
-            <input type="text" placeholder="8888-8888" maxlength="9" required>
-          </div>
-          <div class="field">
-            <label>Monto</label>
-            <input type="text" value="${total}" readonly>
-          </div>
-        </div>
-        <div class="field">
-          <label>Detalle</label>
-          <textarea rows="3" placeholder="Pago de pedido FitBalance Store"></textarea>
-        </div>
-        <p class="helper-text">Simulación: confirmación de pago móvil para ${totalItems} artículo(s).</p>
-      `
-    },
-    transfer: {
-      title: 'Transferencia bancaria',
-      html: `
-        <div class="field">
-          <label>Nombre del cliente</label>
-          <input type="text" placeholder="Ej. Rafael López" required>
-        </div>
-        <div class="field-grid">
-          <div class="field">
-            <label>Banco</label>
-            <select required>
-              <option value="">Selecciona un banco</option>
-              <option>BAC</option>
-              <option>Banco Nacional</option>
-              <option>Banco de Costa Rica</option>
-              <option>Davivienda</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Monto a transferir</label>
-            <input type="text" value="${total}" readonly>
-          </div>
-        </div>
-        <div class="field full">
-          <label>Cuenta destino</label>
-          <input type="text" value="CR00 0000 0000 0000 0000 0000" readonly>
-        </div>
-        <div class="field">
-          <label>Comprobante ilustrativo</label>
-          <input type="text" placeholder="Ej. TRX-2026-00125" required>
-        </div>
-        <p class="helper-text">Simulación académica de transferencia para ${totalItems} artículo(s).</p>
-      `
+  sectionButtons.forEach((button) => {
+    const isActive = button.dataset.sectionTarget === targetId;
+    button.classList.toggle('active', isActive);
+    if (button.classList.contains('section-tab-btn')) {
+      button.setAttribute('aria-selected', isActive ? 'true' : 'false');
     }
-  };
+  });
 
-  const selected = forms[type];
-  paymentTitle.textContent = selected.title;
-  paymentFields.innerHTML = selected.html;
-  paymentForm.dataset.method = type;
+  if (pushHash) {
+    history.replaceState(null, '', `#${targetId}`);
+  }
+
+  if (sectionTabbar) {
+    const topPosition = sectionTabbar.getBoundingClientRect().top + window.scrollY - 100;
+    window.scrollTo({ top: topPosition, behavior: 'smooth' });
+  }
 }
 
-function closePaymentModal() {
-  paymentModal.classList.remove('show');
-  paymentModal.setAttribute('aria-hidden', 'true');
-  if (!cartDrawer.classList.contains('open')) overlay.classList.remove('show');
-}
+function activateCompanyPanel(targetId) {
+  
+sectionButtons.forEach((button) => {
+  button.addEventListener('click', (event) => {
+    const targetId = button.dataset.sectionTarget;
+    if (!targetId) return;
 
-document.querySelectorAll('.add-to-cart').forEach(button => {
-  button.addEventListener('click', () => {
-    const item = {
-      id: button.dataset.id,
-      name: button.dataset.name,
-      price: Number(button.dataset.price),
-      image: button.dataset.image
-    };
-    addToCart(item);
-    openCart();
+    event.preventDefault();
+    activateMainSection(targetId);
   });
 });
 
-openCartBtn.addEventListener('click', openCart);
-closeCartBtn.addEventListener('click', closeCart);
+companyLinks.forEach((link) => {
+    link.classList.toggle('active', link.dataset.companyTarget === targetId);
+  });
 
-checkoutBtn.addEventListener('click', () => {
-  if (getTotalItems() === 0) {
-    alert('Tu carrito está vacío. Agrega al menos un producto.');
-    return;
-  }
-  openPaymentModal('card');
-});
+  companyPanels.forEach((panel) => {
+    panel.classList.toggle('active', panel.id === targetId);
+  });
 
-overlay.addEventListener('click', () => {
-  closeCart();
-  closePaymentModal();
-});
+  if (companySelect) companySelect.value = targetId;
+}
 
-document.querySelectorAll('.payment-card').forEach(card => {
-  card.addEventListener('click', () => openPaymentModal(card.dataset.payment));
-});
-
-closePaymentModalBtn.addEventListener('click', closePaymentModal);
-
-paymentForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const method = paymentForm.dataset.method || 'card';
-  const label = method === 'card' ? 'Tarjeta' : method === 'sinpe' ? 'SINPE Móvil' : 'Transferencia bancaria';
-  alert(`Pago simulado confirmado con el método: ${label}.`);
-  closePaymentModal();
-});
-
-function appendMessage(text, sender) {
+function addChatMessage(text, type = 'bot') {
   const div = document.createElement('div');
-  div.className = sender === 'user' ? 'user-message' : 'bot-message';
+  div.className = type === 'user' ? 'user-message' : 'bot-message';
   div.textContent = text;
   chatWindow.appendChild(div);
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
 
-function getBotReply(message) {
-  const text = message.toLowerCase();
-  if (text.includes('env') || text.includes('entrega')) return 'Gracias por tu consulta. En breve, uno de nuestros asesores se pondrá en contacto contigo para brindarte información sobre envíos y tiempos de entrega.';
-  if (text.includes('pago') || text.includes('tarjeta') || text.includes('sinpe') || text.includes('transferencia')) return 'Hemos recibido tu consulta sobre métodos de pago. En los próximos minutos, un asesor de FitBalance Store podrá ayudarte con la información correspondiente.';
-  if (text.includes('precio') || text.includes('cuesta') || text.includes('valor')) return 'Gracias por tu interés. Un asesor se pondrá en contacto contigo en breve para brindarte detalles sobre precios y promociones disponibles.';
-  if (text.includes('producto') || text.includes('leggings') || text.includes('ligas') || text.includes('mat') || text.includes('barra') || text.includes('camiseta') || text.includes('top')) return 'Gracias por escribirnos. En breve, uno de nuestros asesores podrá brindarte orientación sobre los productos disponibles y sus características.';
-  if (text.includes('hola') || text.includes('buenas')) return '¡Hola! Gracias por comunicarte con FitBalance Store. Hemos recibido tu mensaje y en breve uno de nuestros asesores podrá atenderte.';
-  return 'Gracias por tu mensaje. Hemos recibido tu consulta correctamente y en breve uno de nuestros asesores se pondrá en contacto contigo.';
+function buildBotReply(message) {
+  const normalized = message.toLowerCase();
+
+  if (normalized.includes('env') || normalized.includes('entrega')) {
+    return 'Realizamos envíos a nivel nacional en Costa Rica mediante mensajería y aliados logísticos.';
+  }
+  if (normalized.includes('pago') || normalized.includes('sinpe') || normalized.includes('tarjeta')) {
+    return 'Podés simular el pago con tarjeta, SINPE Móvil o transferencia bancaria.';
+  }
+  if (normalized.includes('ropa') || normalized.includes('producto') || normalized.includes('mat') || normalized.includes('liga')) {
+    return 'Tenemos ropa deportiva, accesorios fitness y snacks saludables para complementar tu rutina.';
+  }
+  if (normalized.includes('hola') || normalized.includes('buenas')) {
+    return '¡Hola! Con gusto te ayudo. Podés consultarme sobre productos, pagos o envíos.';
+  }
+  return 'Gracias por tu mensaje. En esta simulación académica puedo orientarte sobre productos, pagos y envíos.';
 }
 
-chatForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const message = chatInput.value.trim();
-  if (!message) return;
-  appendMessage(message, 'user');
+
+sectionButtons.forEach((button) => {
+  button.addEventListener('click', (event) => {
+    const targetId = button.dataset.sectionTarget;
+    if (!targetId) return;
+
+    event.preventDefault();
+    activateMainSection(targetId);
+  });
+});
+
+companyLinks.forEach((link) => {
+  link.addEventListener('click', () => activateCompanyPanel(link.dataset.companyTarget));
+});
+
+if (companySelect) {
+  companySelect.addEventListener('change', (event) => {
+    activateCompanyPanel(event.target.value);
+  });
+}
+
+productTabs.forEach((tab) => {
+  tab.addEventListener('click', () => {
+    productTabs.forEach((item) => item.classList.remove('active'));
+    tab.classList.add('active');
+    const filter = tab.dataset.filter;
+
+    productCards.forEach((card) => {
+      const show = filter === 'all' || card.dataset.category === filter;
+      card.style.display = show ? 'flex' : 'none';
+    });
+  });
+});
+
+addToCartButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    addItem(button.dataset.name, button.dataset.price, button.dataset.image);
+  });
+});
+
+paymentCards.forEach((card) => {
+  card.addEventListener('click', () => {
+    openPaymentModal(card.dataset.method);
+  });
+});
+
+openCartBtn.addEventListener('click', openCart);
+
+if (openChatBtn) {
+  openChatBtn.addEventListener('click', () => {
+    activateMainSection('contacto');
+    setTimeout(() => {
+      chatInput?.focus();
+    }, 250);
+  });
+}
+
+closeCartBtn.addEventListener('click', closeCart);
+closePaymentModalBtn.addEventListener('click', closePaymentModal);
+overlay.addEventListener('click', () => {
+  closeCart();
+  closePaymentModal();
+});
+
+checkoutBtn.addEventListener('click', () => {
+  if (!getTotalItems()) {
+    alert('Primero agregá al menos un producto al carrito.');
+    return;
+  }
+  openPaymentModal('Pago simulado');
+});
+
+paymentForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  alert('Pago simulado confirmado correctamente.');
+  closePaymentModal();
+});
+
+chatForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const value = chatInput.value.trim();
+  if (!value) return;
+  addChatMessage(value, 'user');
   chatInput.value = '';
-  setTimeout(() => appendMessage(getBotReply(message), 'bot'), 500);
+  setTimeout(() => addChatMessage(buildBotReply(value), 'bot'), 300);
 });
 
 clearChatBtn.addEventListener('click', () => {
-  chatWindow.innerHTML = '';
-  chatInput.value = '';
-  chatWindow.scrollTop = 0;
+  chatWindow.innerHTML = '<div class="bot-message">¡Hola! Soy FitBot. ¿Te ayudo con productos, pagos o envíos?</div>';
 });
 
 openChatBtn.addEventListener('click', () => {
   document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
-  setTimeout(() => chatInput.focus(), 450);
+  chatInput.focus();
 });
 
 renderCart();
+activateCompanyPanel('historia');
