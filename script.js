@@ -213,21 +213,67 @@ function addChatMessage(text, type = 'bot') {
 }
 
 function buildBotReply(message) {
-  const normalized = message.toLowerCase();
+  const normalized = message.toLowerCase().trim();
 
-  if (normalized.includes('env') || normalized.includes('entrega')) {
-    return 'Realizamos envíos a nivel nacional en Costa Rica mediante mensajería y aliados logísticos.';
+  if (normalized === 'hola') {
+    return `¡Hola! Bienvenido a FitBalance Store. Elegí una opción escribiendo el número correspondiente:
+1. Productos
+2. Métodos de pago
+3. Envíos
+4. Hablar con un agente`;
   }
-  if (normalized.includes('pago') || normalized.includes('sinpe') || normalized.includes('tarjeta')) {
-    return 'Podés simular el pago con tarjeta, SINPE Móvil o transferencia bancaria.';
+
+  if (normalized === '1' || normalized === 'producto' || normalized === 'productos') {
+    return `Estos son nuestros productos disponibles:
+1. Proteína whey
+2. Bandas de resistencia
+3. Mancuernas ajustables
+4. Mat de yoga
+5. Botella deportiva
+6. Licra deportiva`;
   }
-  if (normalized.includes('ropa') || normalized.includes('producto') || normalized.includes('mat') || normalized.includes('liga')) {
-    return 'Tenemos ropa deportiva, accesorios fitness y snacks saludables para complementar tu rutina.';
+
+  if (
+    normalized === '2' ||
+    normalized === 'pago' ||
+    normalized === 'pagos' ||
+    normalized === 'metodo de pago' ||
+    normalized === 'metodos de pago' ||
+    normalized === 'método de pago' ||
+    normalized === 'métodos de pago'
+  ) {
+    return `Estos son nuestros métodos de pago:
+1. BAC
+2. Banco Nacional
+3. BCR
+4. DaviBank
+5. SINPE Móvil`;
   }
-  if (normalized.includes('hola') || normalized.includes('buenas')) {
-    return '¡Hola! Con gusto te ayudo. Podés consultarme sobre productos, pagos o envíos.';
+
+  if (
+    normalized === '3' ||
+    normalized === 'envio' ||
+    normalized === 'envios' ||
+    normalized === 'envío' ||
+    normalized === 'envíos'
+  ) {
+    return `Estos son nuestros métodos de envío:
+1. Correos de Costa Rica
+2. Uber
+3. DiDi`;
   }
-  return 'Gracias por tu mensaje. En esta simulación académica puedo orientarte sobre productos, pagos y envíos.';
+
+  if (
+    normalized === '4' ||
+    normalized === 'agente' ||
+    normalized === 'asesor' ||
+    normalized === 'hablar con un agente' ||
+    normalized === 'hablar con un asesor'
+  ) {
+    return 'Con mucho gusto. En breves momentos uno de nuestros asesores se estará poniendo en contacto con vos.';
+  }
+
+  return 'Para iniciar la atención, escribí "hola". También podés escribir directamente: productos, pagos, envíos o agente.';
 }
 
 sectionButtons.forEach((button) => {
@@ -308,7 +354,7 @@ chatForm.addEventListener('submit', (event) => {
 });
 
 clearChatBtn.addEventListener('click', () => {
-  chatWindow.innerHTML = '<div class="bot-message">¡Hola! Soy FitBot. ¿Te ayudo con productos, pagos o envíos?</div>';
+  chatWindow.innerHTML = '';
 });
 
 if (openChatBtn) {
@@ -325,3 +371,4 @@ const validSectionIds = Array.from(mainSections).map((section) => section.id);
 activateMainSection(validSectionIds.includes(initialHash) ? initialHash : 'empresa', false);
 activateCompanyPanel('historia');
 renderCart();
+
